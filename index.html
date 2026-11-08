@@ -2,64 +2,194 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Javilonte</title>
+    <title>Javilonte — Desarrollador | Entusiasta de Tecnología</title>
+    <meta name="description" content="Portafolio de Javilonte. Desarrollo, contenido sobre programación, tecnología y coleccionismo.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Tipografía -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://images.unsplash.com">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
     <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
+
+    <!-- Aplica el tema guardado antes del primer pintado -->
+    <script>
+        try {
+            if (localStorage.getItem('javilonte-tema') === 'oscuro') {
+                document.documentElement.classList.add('oscuro');
+            }
+        } catch (e) { /* Almacenamiento no disponible */ }
+    </script>
 </head>
 <body>
 
-    <!-- Botón Modo Oscuro -->
-    <button id="modo-oscuro">Modo Oscuro</button>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <!-- Sección Inicio -->
-    <section id="inicio">
-        <div class="container">
-            <div class="home-content">
-                <h1>¡Hola! Soy <span>Javi</span></h1>
-                <h3>Desarrollador | Entusiasta de Tecnología</h3>
-                <p>Hago contenido sobre programación, tecnología y coleccionismo.</p>
-            </div>
+    <!-- ============ HEADER ============ -->
+    <header class="site-header" id="site-header">
+        <div class="site-header__inner">
+
+            <a class="site-header__title" href="#inicio">Javilonte</a>
+
+            <nav class="site-header__nav" aria-label="Navegación principal">
+                <a href="#proyectos">Proyectos</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <button class="theme-toggle" id="modo-oscuro" type="button" aria-pressed="false" aria-label="Cambiar entre modo claro y oscuro">
+                <span class="theme-toggle__label">Modo oscuro</span>
+            </button>
+
+            <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="menu-movil" aria-label="Abrir menú">
+                <span class="burger__box">
+                    <span class="burger__line"></span>
+                    <span class="burger__line"></span>
+                </span>
+            </button>
+
         </div>
-    </section>
+    </header>
 
-    <!-- Sección Proyectos -->
-    <section id="proyectos">
-        <div class="container">
-            <h2>Proyectos</h2>
-            <div class="project-list">
-                <!-- Proyecto 1 -->
-                <div class="project-item">
-                    <h3>Visualizador de Algoritmos</h3>
-                    <p>Se utilizó HTML CSS Y JAVASCRIPT</p>
-                    <a href="https://github.com/Javilonte/Visualizador-de-Algoritmos-JS" target="_blank">Ver en GitHub</a>
-                </div>
-                <!-- Proyecto 2 -->
-                <div class="project-item">
-                    <h3>Sistema Bancario</h3>
-                    <p>Pequeño sistema bancario en COBOL</p>
-                    <a href="https://github.com/Javilonte/Sistema-Bancario-Cobol" target="_blank">Ver en GitHub</a>
-                </div>
-                <!-- Agrega más proyectos aquí -->
-            </div>
+    <!-- ============ MENÚ MÓVIL ============ -->
+    <div class="menu" id="menu-movil" hidden>
+        <nav class="menu__nav" aria-label="Navegación móvil">
+            <a href="#proyectos">Proyectos</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+        <div class="menu__meta">
+            <a href="mailto:javgofi@gmail.com">javgofi@gmail.com</a>
         </div>
-    </section>
+    </div>
 
-    <!-- Sección Contacto -->
-    <section id="contacto">
-        <div class="container">
-            <h2>Contacto</h2>
-            <p>Si deseas ponerte en contacto conmigo, puedes enviarme un correo electrónico o seguirme en mis redes sociales.</p>
-            <ul class="social-links">
-                <li><a href="mailto:javgofi@gmail.com">Correo Electrónico</a></li>
-                <li><a href="https://github.com/javilonte" target="_blank">GitHub</a></li>
-                <li><a href="https://linkedin.com/in/javilonte" target="_blank">LinkedIn</a></li>
-                <li><a href="www.youtube.com/@JaviFierro">Youtube</a></li>
+    <main id="contenido">
+
+        <!-- ============ INICIO ============ -->
+        <section class="section section--hero" id="inicio">
+            <div class="shell">
+                <h1 class="masthead" data-masthead>Javilonte</h1>
+            </div>
+
+            <div class="shell">
+                <div class="split split--start">
+                    <figure class="split__media">
+                        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1400&h=1750&fit=crop&crop=entropy&q=80&auto=format"
+                             alt="Escritorio con portátil y editor de código" loading="eager" width="1400" height="1750">
+                    </figure>
+
+                    <div class="split__body">
+                        <h2 class="display">Desarrollador y entusiasta de tecnología</h2>
+                        <p class="mono">Hago contenido sobre programación, tecnología y coleccionismo.</p>
+                        <a class="btn" href="#proyectos">Proyectos →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROYECTOS ============ -->
+        <section class="section" id="proyectos">
+            <div class="shell">
+                <div class="split split--reverse">
+                    <div class="split__body">
+                        <h2 class="display display--section">Proyectos</h2>
+                        <p class="mono">Cada proyecto empieza con una pregunta y termina con algo que funciona. Acá están los que ya están publicados en GitHub, con el código abierto para que los mires, los clones y los rompas.</p>
+                        <a class="btn" href="https://github.com/javilonte" target="_blank" rel="noopener noreferrer">Ver en GitHub →</a>
+                    </div>
+
+                    <figure class="split__media">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1400&h=1750&fit=crop&crop=entropy&q=80&auto=format"
+                             alt="Código en pantalla" loading="lazy" width="1400" height="1750">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROYECTO 01 ============ -->
+        <section class="section" id="visualizador-de-algoritmos">
+            <div class="shell">
+                <div class="split">
+                    <figure class="split__media">
+                        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1400&h=1750&fit=crop&crop=entropy&q=80&auto=format"
+                             alt="Editor de código" loading="lazy" width="1400" height="1750">
+                        <ul class="gallery">
+                            <li class="gallery__wide"><img src="https://opengraph.githubassets.com/1/Javilonte/Visualizador-de-Algoritmos-JS" alt="Vista previa del repositorio Visualizador de Algoritmos en GitHub" loading="lazy" width="1200" height="630"></li>
+                            <li><img src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=900&h=1125&fit=crop&crop=entropy&q=80&auto=format" alt="Fragmento de código en color" loading="lazy" width="900" height="1125"></li>
+                            <li><img src="https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=900&h=1125&fit=crop&crop=entropy&q=80&auto=format" alt="Editor con sintaxis resaltada" loading="lazy" width="900" height="1125"></li>
+                        </ul>
+                    </figure>
+
+                    <div class="split__body">
+                        <h2 class="display display--section">Visualizador de algoritmos</h2>
+                        <p class="mono">Se utilizó HTML CSS Y JAVASCRIPT. Animaciones paso a paso para ver cómo se ordena un array en el navegador, sin instalar nada.</p>
+                        <a class="btn" href="https://github.com/Javilonte/Visualizador-de-Algoritmos-JS" target="_blank" rel="noopener noreferrer">Ver en GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROYECTO 02 ============ -->
+        <section class="section" id="sistema-bancario">
+            <div class="shell">
+                <div class="split split--reverse">
+                    <div class="split__body">
+                        <h2 class="display display--section">Sistema bancario</h2>
+                        <p class="mono">Pequeño sistema bancario en COBOL. Clientes, cuentas y movimientos, con la lógica de un libro mayor clásico.</p>
+                        <a class="btn" href="https://github.com/Javilonte/Sistema-Bancario-Cobol" target="_blank" rel="noopener noreferrer">Ver en GitHub →</a>
+                    </div>
+
+                    <figure class="split__media">
+                        <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1400&h=1750&fit=crop&crop=entropy&q=80&auto=format"
+                             alt="Código de sistema" loading="lazy" width="1400" height="1750">
+                        <ul class="gallery">
+                            <li class="gallery__wide"><img src="https://opengraph.githubassets.com/1/Javilonte/Sistema-Bancario-Cobol" alt="Vista previa del repositorio Sistema Bancario en GitHub" loading="lazy" width="1200" height="630"></li>
+                            <li><img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=900&h=1125&fit=crop&crop=entropy&q=80&auto=format" alt="Red global de datos" loading="lazy" width="900" height="1125"></li>
+                            <li><img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=900&h=1125&fit=crop&crop=entropy&q=80&auto=format" alt="Terminal con líneas de código" loading="lazy" width="900" height="1125"></li>
+                        </ul>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ CONTACTO ============ -->
+        <section class="section" id="contacto">
+            <div class="shell">
+                <div class="split split--reverse">
+                    <div class="split__body">
+                        <h2 class="display display--section">Contacto</h2>
+                        <p class="mono">Si deseas ponerte en contacto conmigo, puedes enviarme un correo electrónico o seguirme en mis redes sociales.</p>
+
+                        <ul class="links">
+                            <li><a href="mailto:javgofi@gmail.com">Correo Electrónico</a></li>
+                            <li><a href="https://github.com/javilonte" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                            <li><a href="https://linkedin.com/in/javilonte" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                            <li><a href="https://www.youtube.com/@JaviFierro" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+                        </ul>
+                    </div>
+
+                    <figure class="split__media">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1400&h=1750&fit=crop&crop=entropy&q=80&auto=format"
+                             alt="Espacio de trabajo" loading="lazy" width="1400" height="1750">
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="site-footer">
+        <div class="shell site-footer__inner">
+            <p class="mono">© 2026 Javilonte</p>
+            <ul class="links links--footer">
+                <li><a href="https://github.com/javilonte" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="https://linkedin.com/in/javilonte" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+                <li><a href="https://www.youtube.com/@JaviFierro" target="_blank" rel="noopener noreferrer">Youtube</a></li>
+                <li><a href="mailto:javgofi@gmail.com">Correo</a></li>
             </ul>
         </div>
-    </section>
+    </footer>
 
     <!-- Scripts -->
     <script src="script.js"></script>

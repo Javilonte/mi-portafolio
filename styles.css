@@ -1,313 +1,585 @@
-/* Variables de color */
+/* =========================================================
+   JAVILONTE — Portafolio
+   Referencia de diseño: Squarespace "Reseda" (Fluid Engine)
+   ========================================================= */
+
+/* ---------- 1. Tokens ---------- */
 :root {
-    --color-primario: #E4007C; /* Rosa mexicano */
-    --color-fondo: #FFFFFF;
-    --color-texto: #000000;
-    --color-secundario: #F0F0F0;
-    --color-fondo-oscuro: #121212;
-    --color-texto-oscuro: #e0e0e0;
-    --color-acento-oscuro: #bb86fc;
+    /* Color — paleta medida del template */
+    --paper: #F5F5F3;
+    --ink: #000000;
+    --ink-soft: #28282A;
+    --rule: #28282A;
+    --surface: #FFFFFF;
+
+    /* Métrica */
+    --page-pad: 4vw;
+    --max-width: 1800px;
+    --header-h: 92px;
+    --gutter: 2.2vw;
+
+    /* Tipografía */
+    --display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --sans: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+
+    /* Ritmo */
+    --section-pad: clamp(64px, 9vw, 150px);
+    --block-gap: clamp(24px, 3vw, 48px);
 }
 
-/* Reset y tipografía */
-* {
+/* ---------- 2. Reset y base ---------- */
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    color-scheme: light;
+}
+
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--color-fondo);
-    color: var(--color-texto);
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
-/* Botón Modo Oscuro */
-#modo-oscuro {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: var(--color-primario);
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    z-index: 1000;
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
-#modo-oscuro:hover {
-    background-color: #c0006b;
+a {
+    color: inherit;
+    text-decoration: none;
 }
 
-/* Contenedor principal */
-.container {
-    width: 90%;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 0;
-    position: relative;
+ul {
+    list-style: none;
 }
 
-/* Secciones */
-section {
-    position: relative;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    border-top: 2px dotted var(--color-primario);
+figure {
+    margin: 0;
 }
 
-section:first-of-type {
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 200;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 0.875rem;
+}
+
+.skip-link:focus {
+    left: 0;
+}
+
+/* ---------- 3. Primitivas tipográficas ---------- */
+
+/* Display — grotesca extendida, mayúsculas, tracking cerrado */
+.display {
+    font-family: var(--display);
+    font-stretch: 115%;
+    font-weight: 800;
+    /* 33.28px a 1440px, igual que el template */
+    font-size: clamp(1.5rem, 2.31vw, 2.08rem);
+    line-height: 1.25;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.display--section {
+    font-size: clamp(1.5rem, 2.31vw, 2.08rem);
+}
+
+/* Cuerpo — monoespaciada */
+.mono {
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    max-width: 46ch;
+}
+
+/* ---------- 4. Layout ---------- */
+.shell {
+    width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--page-pad);
+}
+
+.section {
+    padding-block: var(--section-pad);
+    border-top: 1px solid var(--rule);
+}
+
+.section:first-child {
     border-top: none;
 }
 
-section:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 1px;
-    height: 40px;
-    background-color: var(--color-primario);
-    transform: translateX(-50%);
+/* Los anclajes no deben quedar debajo del encabezado fijo */
+.section[id] {
+    scroll-margin-top: var(--header-h);
 }
 
-section:last-of-type:after {
-    display: none;
+.section--hero {
+    padding-top: calc(var(--header-h) + clamp(24px, 4vw, 56px));
 }
 
-/* Títulos */
-h1, h2 {
-    text-align: center;
-    color: var(--color-primario);
-    margin-bottom: 20px;
+/* Rejilla de 12 columnas */
+.split {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--gutter);
+    align-items: center;
 }
 
-h1 {
-    font-size: 3em;
+.split__media {
+    grid-column: 1 / span 7;
 }
 
-h2 {
-    font-size: 2.5em;
+.split__body {
+    grid-column: 8 / span 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--block-gap);
 }
 
-/* Sección Inicio */
-#inicio {
-    background-color: #1e1e1e;
-    background-size: cover;
-    background-position: center;
-    color: #fff;
+.split--reverse .split__body {
+    grid-column: 1 / span 5;
 }
 
-#inicio:before {
-    content: '';
-    position: absolute;
+.split--reverse .split__media {
+    grid-column: 6 / span 7;
+}
+
+.split--start {
+    align-items: start;
+}
+
+/* ---------- 5. Masthead ---------- */
+.masthead {
+    font-family: var(--display);
+    font-stretch: 115%;
+    font-weight: 800;
+    /* Fórmula del template: escala con el alto del viewport.
+       JS ajusta el tamaño real al ancho disponible. */
+    font-size: calc(0.3486 * min(100vh, 900px));
+    line-height: 0.95;
+    letter-spacing: -0.06em;
+    text-transform: uppercase;
+    color: var(--ink);
+    white-space: nowrap;
+    display: inline-block;
+    margin-bottom: clamp(20px, 2.5vw, 40px);
+}
+
+/* ---------- 6. Header ---------- */
+.site-header {
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Oscurece la imagen para mejor legibilidad */
+    z-index: 100;
+    /* Sobre el hero el papel es el mismo color de fondo, así que el
+       encabezado se ve idéntico al del template pero el contenido que
+       pasa por debajo no se mezcla con el texto. */
+    background-color: var(--paper);
+    border-bottom: 1px solid var(--rule);
 }
 
-#inicio .container {
-    position: relative;
-    z-index: 1;
-}
-
-.home-content {
-    text-align: center;
-    padding: 100px 20px;
-}
-
-.home-content h1 {
-    font-size: 3.5em;
-    animation: fadeInDown 1s;
-}
-
-.home-content h1 span {
-    color: var(--color-primario);
-}
-
-.home-content p {
-    font-size: 1.5em;
-    margin-top: 20px;
-    animation: fadeInUp 1s;
-}
-
-.home-content .btn {
-    display: inline-block;
-    margin-top: 30px;
-    padding: 15px 30px;
-    background-color: var(--color-primario);
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2em;
-    border-radius: 5px;
-    animation: fadeInUp 1s;
-}
-
-.home-content .btn:hover {
-    background-color: #c0006b;
-}
-
-/* Animaciones */
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Sección Proyectos */
-.project-list {
+.site-header__inner {
+    width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding-inline: var(--page-pad);
+    min-height: var(--header-h);
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    align-items: center;
+    gap: 32px;
 }
 
-.project-item {
-    border: 2px dotted var(--color-primario);
-    padding: 20px;
+.site-header__title {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-right: auto;
+}
+
+.site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.site-header__nav a {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    padding-block: 2px;
     position: relative;
-    background-color: var(--color-secundario);
 }
 
-.project-item:after {
+.site-header__nav a::after {
     content: '';
     position: absolute;
-    left: -20px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-header__nav a:hover::after,
+.site-header__nav a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Toggle de tema — mismo lenguaje tipográfico que la navegación */
+.theme-toggle {
+    font-family: var(--sans);
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background-color: transparent;
+    border: none;
+    padding: 2px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.theme-toggle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-toggle:hover::after,
+.theme-toggle:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Burger */
+.burger {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.burger__box {
+    position: absolute;
     top: 50%;
-    width: 10px;
-    height: 10px;
-    background-color: var(--color-primario);
-    border-radius: 50%;
-    transform: translateY(-50%);
-}
-
-.project-item h3 {
-    color: var(--color-primario);
-    margin-bottom: 10px;
-}
-
-.project-item p {
-    margin-bottom: 10px;
-}
-
-.project-item a {
-    color: var(--color-primario);
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.project-item a:hover {
-    text-decoration: underline;
-}
-
-/* Sección Contacto */
-#contacto p {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.social-links {
-    list-style: none;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 26px;
+    height: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+}
+
+.burger__line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--ink);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger[aria-expanded='true'] .burger__line:first-child {
+    transform: translateY(7.5px) rotate(45deg);
+}
+
+.burger[aria-expanded='true'] .burger__line:last-child {
+    transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ---------- 7. Menú móvil ---------- */
+.menu {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background-color: var(--paper);
+    padding: calc(var(--header-h) + 40px) var(--page-pad) 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu[hidden] {
+    display: none;
+}
+
+.menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu__nav a {
+    font-family: var(--display);
+    font-stretch: 125%;
+    font-weight: 800;
+    font-size: clamp(2rem, 11vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+}
+
+.menu__meta {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- 8. Botones y enlaces ---------- */
+.btn {
+    display: inline-block;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    background-color: transparent;
+    border: 1px solid var(--ink);
+    padding: 16px 21px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+    background-color: var(--ink);
+    color: var(--paper);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.social-links li a {
-    color: var(--color-primario);
-    text-decoration: none;
-    font-size: 1.2em;
+.links a {
+    font-family: var(--mono);
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--ink);
+    position: relative;
+    width: fit-content;
+    padding-bottom: 2px;
 }
 
-.social-links li a:hover {
-    text-decoration: underline;
+.links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Modo Oscuro */
-body.oscuro {
-    background-color: var(--color-fondo-oscuro);
-    color: var(--color-texto-oscuro);
+.links a:hover::after,
+.links a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
-body.oscuro a {
-    color: var(--color-acento-oscuro);
+/* ---------- 9. Medios ---------- */
+/* El template usa imágenes verticales (relación 1.14–1.46). */
+.split__media > img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.03);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-body.oscuro h1, body.oscuro h2, body.oscuro h3 {
-    color: var(--color-acento-oscuro);
+.split__media:hover > img {
+    transform: scale(1.03);
 }
 
-body.oscuro .project-item {
-    background-color: #1e1e1e;
-    border-color: var(--color-acento-oscuro);
+/* Tira de galería bajo la imagen principal */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gutter);
+    margin-top: var(--gutter);
 }
 
-body.oscuro .project-item:after {
-    background-color: var(--color-acento-oscuro);
+.gallery img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    filter: saturate(0.88) contrast(1.03);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-body.oscuro section {
-    border-top-color: var(--color-acento-oscuro);
+.gallery li:hover img {
+    transform: scale(1.04);
 }
 
-body.oscuro section:after {
-    background-color: var(--color-acento-oscuro);
+/* La vista previa del repositorio ocupa el ancho completo */
+.gallery__wide {
+    grid-column: 1 / -1;
 }
 
-body.oscuro #inicio:before {
-    background-color: rgba(0, 0, 0, 0.7);
+.gallery__wide img {
+    aspect-ratio: 1200 / 600;
 }
 
-body.oscuro #modo-oscuro {
-    background-color: var(--color-acento-oscuro);
+/* ---------- 10. Footer ---------- */
+.site-footer {
+    border-top: 1px solid var(--rule);
+    padding-block: clamp(32px, 4vw, 56px);
 }
 
-body.oscuro #modo-oscuro:hover {
-    background-color: #9a68c3;
+.site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
 }
 
-/* Responsividad */
-@media (min-width: 600px) {
-    .project-list {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 20px;
+.links--footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+/* ---------- 11. Modo oscuro ---------- */
+html.oscuro {
+    --paper: #1C1C1D;
+    --ink: #F5F5F3;
+    --ink-soft: #C9C9C7;
+    --rule: #3A3A3C;
+    --surface: #242426;
+    color-scheme: dark;
+}
+
+/* ---------- 12. Movimiento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
     }
 
-    .project-item {
-        width: calc(50% - 10px);
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ---------- 13. Responsive ---------- */
+@media (max-width: 1024px) {
+    :root {
+        --header-h: 76px;
     }
 
-    .project-item:after {
-        left: auto;
-        right: -20px;
+    .split__media,
+    .split--reverse .split__media {
+        grid-column: 1 / span 7;
     }
 
-    .social-links {
-        flex-direction: row;
+    .split__body,
+    .split--reverse .split__body {
+        grid-column: 8 / span 5;
+    }
+}
+
+@media (max-width: 860px) {
+    .site-header__nav {
+        display: none;
     }
 
-    .social-links li {
-        margin: 0 15px;
+    .burger {
+        display: block;
+    }
+
+    .split,
+    .split--reverse {
+        grid-template-columns: 1fr;
+        row-gap: clamp(28px, 6vw, 48px);
+    }
+
+    .split__media,
+    .split--reverse .split__media,
+    .split__body,
+    .split--reverse .split__body {
+        grid-column: 1 / -1;
+    }
+
+    .mono {
+        max-width: none;
+    }
+}
+
+@media (max-width: 560px) {
+    :root {
+        --page-pad: 6vw;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    .site-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
